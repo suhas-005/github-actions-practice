@@ -13,14 +13,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - name: Get npm cache directory
-        id: npm-cache-dir
-        shell: bash
-        run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
       - uses: actions/cache@v4
         id: npm-cache 
         with:
-          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         if: steps.npm-cache.outputs.cache-hit != 'true'
@@ -39,14 +35,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16'
-      - name: Get npm cache directory
-        id: npm-cache-dir
-        shell: bash
-        run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
       - uses: actions/cache@v4
         id: npm-cache 
         with:
-          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
